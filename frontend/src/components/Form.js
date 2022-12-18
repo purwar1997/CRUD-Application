@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
+import List from './List';
 
 export default function Form() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState('');
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -24,6 +26,7 @@ export default function Form() {
     setUsername('');
     setEmail('');
     setPassword('');
+    setUser('');
   };
 
   return (
@@ -93,6 +96,8 @@ export default function Form() {
           Submit
         </button>
       </form>
+
+      <List user={user} setUser={setUser} />
     </>
   );
 }

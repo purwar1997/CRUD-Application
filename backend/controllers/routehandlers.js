@@ -37,7 +37,8 @@ exports.createUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = await User.create({ username, email, password: hashedPassword });
+    const newUser = await User.create({ username, email, password, hashedPassword });
+    newUser.hashedPassword = undefined;
     res.status(201).json(newUser);
   } catch (error) {
     res.status(401).json({
@@ -49,23 +50,8 @@ exports.createUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   try {
-    const { email } = req.body;
-
-    if (!email) {
-      throw new Error('Please enter email to get user data');
-    }
-
-    if (
-      !(
-        email.endsWith('@gmail.com') ||
-        email.endsWith('@hotmail.com') ||
-        email.endsWith('@outlook.com')
-      )
-    ) {
-      throw new Error('Email should be in correct format');
-    }
-
-    const user = await User.findOne({ email });
+    const user = await User.findById(req.params.userId);
+    user.hashedPassword = undefined;
     res.status(201).json(user);
   } catch (error) {
     res.status(401).json({
@@ -95,9 +81,10 @@ exports.editUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await User.findByIdAndUpdate(req.params.userId, { username, email, password: hashedPassword });
+    await User.findByIdAndUpdate(req.params.userId, { username, email, password, hashedPassword });
 
     const updatedUser = await User.findById(req.params.userId);
+    updatedUser.hashedPassword = undefined;
     res.status(201).json(updatedUser);
   } catch (error) {
     res.status(401).json({

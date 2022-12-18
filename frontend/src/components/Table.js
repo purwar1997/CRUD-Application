@@ -1,34 +1,38 @@
-export default function Table() {
+export default function Table({ user }) {
   return (
     <>
-      <table className="mt-16 mx-auto mb-16 w-1/2">
-        <thead className="bg-[#f4f4f8]">
-          <tr>
-            <th className="border py-3 text-2xl font-semibold" colSpan="2">
-              User
-            </th>
-          </tr>
-        </thead>
+      {user ? (
+        <table className="mx-auto mb-14 w-1/2">
+          <thead className="bg-[#f4f4f8]">
+            <tr>
+              <th className="border py-3 text-2xl font-semibold" colSpan="2">
+                User
+              </th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <tr>
-            <td className="border w-1/2 px-4 py-2.5 text-center">Username</td>
-            <td className="border px-4 text-center">suyash90</td>
-          </tr>
-          <tr>
-            <td className="border w-1/2 px-4 py-2.5 text-center">Email</td>
-            <td className="border px-4 text-center">suyash4056</td>
-          </tr>
-          <tr>
-            <td className="border w-1/2 px-4 py-2.5 text-center">Password</td>
-            <td className="border px-4 text-center">hadsha-00</td>
-          </tr>
-          <tr>
-            <td className="border w-1/2 px-4 py-2.5 text-center">UserId</td>
-            <td className="border px-4 text-center">456789kaj0989</td>
-          </tr>
-        </tbody>
-      </table>
+          <tbody>
+            <tr>
+              <td className="border w-1/2 px-4 py-2.5 text-center">Username</td>
+              <td className="border px-4 text-center">{user.username}</td>
+            </tr>
+            <tr>
+              <td className="border w-1/2 px-4 py-2.5 text-center">Email</td>
+              <td className="border px-4 text-center">{user.email}</td>
+            </tr>
+            <tr>
+              <td className="border w-1/2 px-4 py-2.5 text-center">Password</td>
+              <td className="border px-4 text-center">{user.password}</td>
+            </tr>
+            <tr>
+              <td className="border w-1/2 px-4 py-2.5 text-center">UserId</td>
+              <td className="border px-4 text-center">{user._id}</td>
+            </tr>
+          </tbody>
+        </table>
+      ) : (
+        ''
+      )}
     </>
   );
 }

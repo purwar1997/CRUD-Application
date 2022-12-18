@@ -20,6 +20,11 @@ const userSchema = new Schema({
     required: [true, 'Password is required'],
     unique: true,
   },
+  hashedPassword: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 });
 
 module.exports = mongoose.model('user', userSchema);
