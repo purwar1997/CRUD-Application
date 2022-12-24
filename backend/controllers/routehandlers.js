@@ -8,11 +8,16 @@ exports.home = (req, res) => {
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find();
-    res.status(201).json({ users: users });
+
+    res.status(201).json({
+      success: true,
+      message: 'All the users have been successfully fetched',
+      users,
+    });
   } catch (error) {
     res.status(401).json({
       success: false,
-      message: 'Cannot fetch users',
+      message: 'Unable to fetch users',
     });
   }
 };
@@ -32,14 +37,29 @@ exports.createUser = async (req, res) => {
         email.endsWith('@outlook.com')
       )
     ) {
-      throw new Error('Email is not in correct format');
+      throw new Error('Email should be in correct format');
+    }
+
+    if (password < 6) {
+      throw new Error('Password should be atleast 6 characters long');
+    }
+
+    const user = await User.findOne({ email });
+
+    if (user) {
+      throw new Error('User already exists');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({ username, email, password, hashedPassword });
     newUser.hashedPassword = undefined;
-    res.status(201).json(newUser);
+
+    res.status(201).json({
+      success: true,
+      message: 'A new user has been created',
+      newUser,
+    });
   } catch (error) {
     res.status(401).json({
       success: false,
@@ -52,11 +72,16 @@ exports.getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
     user.hashedPassword = undefined;
-    res.status(201).json(user);
+
+    res.status(201).json({
+      success: true,
+      message: 'User has been successfully fetched',
+      user,
+    });
   } catch (error) {
     res.status(401).json({
       success: false,
-      message: error.message,
+      message: 'Unable to fetch user',
     });
   }
 };
@@ -79,13 +104,21 @@ exports.editUser = async (req, res) => {
       throw new Error('Email should be in correct format');
     }
 
+    if (password < 6) {
+      throw new Error('Password should be atleast 6 characters long');
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.findByIdAndUpdate(req.params.userId, { username, email, password, hashedPassword });
-
     const updatedUser = await User.findById(req.params.userId);
     updatedUser.hashedPassword = undefined;
-    res.status(201).json(updatedUser);
+
+    res.status(201).json({
+      success: true,
+      message: 'User has been successfully updated',
+      updatedUser,
+    });
   } catch (error) {
     res.status(401).json({
       success: false,
@@ -96,7 +129,8 @@ exports.editUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   try {
-    const deletedUser = await User.findByIdAndDelete(req.params.userId);
+    await User.findByIdAndDelete(req.params.userId);
+
     res.status(201).json({
       success: true,
       message: 'User has been deleted',
@@ -104,7 +138,7 @@ exports.deleteUser = async (req, res) => {
   } catch (error) {
     res.status(401).json({
       success: false,
-      message: 'Cannot delete user',
+      message: 'Unable to delete user',
     });
   }
 };

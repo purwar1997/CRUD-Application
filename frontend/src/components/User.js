@@ -1,11 +1,11 @@
-export default function Table({ user }) {
+export default function User({ user }) {
   return (
     <>
       {user ? (
-        <table className="mx-auto mb-14 w-1/2">
+        <table className="mx-auto mb-16 w-1/2">
           <thead className="bg-[#f4f4f8]">
             <tr>
-              <th className="border py-3 text-2xl font-semibold" colSpan="2">
+              <th className="border py-3 text-2xl font-normal" colSpan="2">
                 User
               </th>
             </tr>

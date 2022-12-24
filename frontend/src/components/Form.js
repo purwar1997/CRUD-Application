@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
-import List from './List';
 
 export default function Form() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState('');
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -19,31 +17,32 @@ export default function Form() {
       });
 
       console.log(res.data);
+
+      setUsername('');
+      setEmail('');
+      setPassword('');
     } catch (err) {
       console.log(`${err.message}\n${err.response.data.message}`);
+      alert(err.response.data.message);
     }
-
-    setUsername('');
-    setEmail('');
-    setPassword('');
-    setUser('');
   };
 
   return (
     <>
-      <h1 className="mt-10 text-4xl font-semibold text-center">Create User</h1>
+      <h1 className="mt-10 text-4xl text-center">Create User</h1>
 
       <form
         onSubmit={handleSubmit}
-        className="mt-12 flex flex-col items-center gap-10"
+        className="mt-12 flex flex-col items-center gap-8"
         action=""
         method="post"
       >
-        <div className="flex justify-center gap-10">
+        <div className="flex justify-center gap-8">
           <div className="flex flex-col items-start gap-2">
             <label className="text-lg" htmlFor="username">
               Username
             </label>
+
             <input
               className="bg-[#fcfcfc] px-3 py-2.5 w-72 border rounded focus:outline-[#656EF5]"
               type="text"
@@ -60,6 +59,7 @@ export default function Form() {
             <label className="text-lg" htmlFor="email">
               Email
             </label>
+
             <input
               className="bg-[#fcfcfc] px-3 py-2.5 w-72 border rounded focus:outline-[#656EF5]"
               type="email"
@@ -76,6 +76,7 @@ export default function Form() {
             <label className="text-lg" htmlFor="password">
               Password
             </label>
+
             <input
               className="bg-[#fcfcfc] px-3 py-2.5 w-72 border rounded focus:outline-[#656EF5]"
               type="text"
@@ -96,8 +97,6 @@ export default function Form() {
           Submit
         </button>
       </form>
-
-      <List user={user} setUser={setUser} />
     </>
   );
 }
