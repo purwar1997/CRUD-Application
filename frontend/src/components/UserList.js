@@ -17,7 +17,7 @@ export default function UserList() {
     }
 
     fetchUsers();
-  });
+  }, [users]);
 
   const editUser = async userdata => {
     let username = prompt('Enter your new username');
