@@ -17,7 +17,7 @@ exports.getUsers = async (req, res) => {
   } catch (error) {
     res.status(401).json({
       success: false,
-      message: 'Unable to fetch users',
+      message: 'Cannot fetch users',
     });
   }
 };
@@ -57,7 +57,7 @@ exports.createUser = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'A new user has been created',
+      message: 'User created successfully',
       newUser,
     });
   } catch (error) {
@@ -75,13 +75,13 @@ exports.getUser = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'User has been successfully fetched',
+      message: 'User fetched successfully',
       user,
     });
   } catch (error) {
     res.status(401).json({
       success: false,
-      message: 'Unable to fetch user',
+      message: 'Cannot fetch user',
     });
   }
 };
@@ -116,7 +116,7 @@ exports.editUser = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'User has been successfully updated',
+      message: 'User updated successfully',
       updatedUser,
     });
   } catch (error) {
@@ -133,12 +133,12 @@ exports.deleteUser = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'User has been deleted',
+      message: 'User deleted successfully',
     });
   } catch (error) {
     res.status(401).json({
       success: false,
-      message: 'Unable to delete user',
+      message: 'Cannot delete user',
     });
   }
 };
