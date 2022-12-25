@@ -78,7 +78,7 @@ export default function UserList() {
               <tr className="border">
                 <th className="px-5 py-2 font-semibold text-left">Username</th>
                 <th className="px-5 py-2 font-semibold text-left">Email</th>
-                <th className="px-5 py-2 font-semibold text-left">Show</th>
+                <th className="px-5 py-2 font-semibold text-left">View</th>
                 <th className="px-5 py-2 font-semibold text-left">Edit</th>
                 <th className="px-5 py-2 font-semibold text-left">Delete</th>
               </tr>
@@ -91,7 +91,7 @@ export default function UserList() {
                   <td className="px-5 py-2.5">{user.email}</td>
                   <td className="px-5 py-2.5">
                     <button className="text-yellow-500" onClick={() => setUser(user)}>
-                      Show
+                      View
                     </button>
                   </td>
                   <td className="px-5 py-2.5">
